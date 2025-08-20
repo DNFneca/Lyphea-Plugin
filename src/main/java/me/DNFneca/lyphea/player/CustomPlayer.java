@@ -1,5 +1,7 @@
 package me.DNFneca.lyphea.player;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.DNFneca.lyphea.Lyphea;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -7,31 +9,34 @@ import org.bukkit.entity.Player;
 import java.lang.constant.Constable;
 import java.util.*;
 
+@Getter
+@Setter
 public class CustomPlayer {
-    public UUID uuid;
-    public String name;
-    public final Map<String, PlayerField<?>> fields = new HashMap<>(0);
+    private UUID UUID;
+    private String name;
+    private final Map<String, PlayerField<?>> fields = new HashMap<>(0);
 
-    public CustomPlayer(UUID uuid, String name) {
-        this.uuid = uuid;
+
+    public CustomPlayer(UUID UUID, String name) {
+        this.UUID = UUID;
         this.name = name;
         this.fields.put(new NamespacedKey(Lyphea.getInstance(), "mana").toString(), new PlayerField<>("Mana", 0D));
     }
 
-    public CustomPlayer(UUID uuid, String name, Map<String, PlayerField<?>> fields) {
-        this.uuid = uuid;
+    public CustomPlayer(UUID UUID, String name, Map<String, PlayerField<?>> fields) {
+        this.UUID = UUID;
         this.name = name;
         this.fields.putAll(fields);
     }
 
     public CustomPlayer(Player player) {
-        this.uuid = player.getUniqueId();
+        this.UUID = player.getUniqueId();
         this.name = player.getName();
         this.fields.put(new NamespacedKey(Lyphea.getInstance(), "mana").toString(), new PlayerField<>("Mana", 0D));
     }
 
     public CustomPlayer(Player player, Map<String, PlayerField<?>> fields) {
-        this.uuid = player.getUniqueId();
+        this.UUID = player.getUniqueId();
         this.name = player.getName();
         this.fields.putAll(fields);
     }

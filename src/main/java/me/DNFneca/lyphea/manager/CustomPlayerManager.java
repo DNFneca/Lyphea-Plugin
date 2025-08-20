@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import me.DNFneca.lyphea.Lyphea;
 import me.DNFneca.lyphea.player.CustomPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.FileReader;
@@ -34,7 +33,7 @@ public class CustomPlayerManager {
     }
 
     private static void savePlayer(CustomPlayer customPlayer) {
-        File file = new File(Lyphea.getInstance().getDataFolder(), "players/" + customPlayer.uuid.toString() + ".json");
+        File file = new File(Lyphea.getInstance().getDataFolder(), "players/" + customPlayer.getUUID().toString() + ".json");
         try (FileWriter writer = new FileWriter(file)) {
             new Gson().toJson(customPlayer, writer);
         } catch (IOException e) {

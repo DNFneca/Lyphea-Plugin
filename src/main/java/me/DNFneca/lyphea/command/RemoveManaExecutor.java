@@ -1,18 +1,12 @@
-package me.DNFneca.lyphea.commands;
+package me.DNFneca.lyphea.command;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import me.DNFneca.lyphea.Lyphea;
 import me.DNFneca.lyphea.manager.CustomPlayerManager;
 import net.kyori.adventure.text.Component;
-import org.bukkit.NamespacedKey;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.constant.Constable;
 
 @CommandAlias("removeMana")
 @Description("Removes mana from the mentioned player")
