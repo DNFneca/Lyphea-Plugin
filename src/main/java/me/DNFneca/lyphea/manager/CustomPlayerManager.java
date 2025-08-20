@@ -15,7 +15,6 @@ import java.util.UUID;
 
 public class CustomPlayerManager {
     public static final Map<UUID, CustomPlayer> players = new HashMap<>();
-    public static CustomPlayerManager INSTANCE = new CustomPlayerManager();
 
 
     // Private constructor
