@@ -6,6 +6,7 @@ import me.DNFneca.lyphea.Lyphea;
 import me.DNFneca.lyphea.player.CustomPlayer;
 import me.DNFneca.lyphea.player.PlayerField;
 import me.DNFneca.lyphea.player.Race;
+import me.DNFneca.lyphea.player.Rank;
 import me.DNFneca.lyphea.player.collection.Collection;
 import me.DNFneca.lyphea.player.collection.CollectionType;
 import net.kyori.adventure.text.Component;
@@ -79,10 +80,9 @@ public class CustomPlayerManager {
                         put(new NamespacedKey(Lyphea.getInstance(), "speed").toString(), new PlayerField<>(Component.text("Speed").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(Lyphea.getInstance(), "intelligence").toString(), new PlayerField<>(Component.text("Intelligence").color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(Lyphea.getInstance(), "race").toString(), new PlayerField<>(Component.text("Race").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), Race.HUMAN));
-                        put(new NamespacedKey(Lyphea.getInstance(), "color").toString(), new PlayerField<>(Component.text("Color").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(Lyphea.getInstance(), "height").toString(), new PlayerField<>(Component.text("Height").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(Lyphea.getInstance(), "rank").toString(), new PlayerField<>(Component.text("Rank").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(Lyphea.getInstance(), "level").toString(), new PlayerField<>(Component.text("Level").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
+                        put(new NamespacedKey(Lyphea.getInstance(), "rank").toString(), new PlayerField<>(Component.text("Rank").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), Rank.PLAYER));
+                        put(new NamespacedKey(Lyphea.getInstance(), "xp").toString(), new PlayerField<>(Component.text("Total XP").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(Lyphea.getInstance(), "collections").toString(), new PlayerField<>(Component.text("Collections").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
                                 new HashMap<>() {
                                     {
