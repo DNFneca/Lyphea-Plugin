@@ -2,7 +2,9 @@ package me.DNFneca.lyphea.command;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
+import com.google.gson.reflect.TypeToken;
 import me.DNFneca.lyphea.manager.CustomPlayerManager;
+import me.DNFneca.lyphea.player.PlayerField;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,11 +19,10 @@ public class RemoveManaExecutor extends BaseCommand {
     @CommandCompletion("@players @range:-10000-10000")
     public boolean onCommand(@NotNull CommandSender sender, @Name("target") @Flags("other") @NotNull Player target, @Name("amount") @Default("10") @NotNull Double amount) {
         if (!sender.isOp() || !(sender instanceof Player player)) return false;
-        player.sendMessage(Component.text("Current mana: " + CustomPlayerManager.players.get(player.getUniqueId()).getField("mana").currentValue));
-        Double newMana = (Double) (CustomPlayerManager.players.get(player.getUniqueId()).getField("mana").currentValue);
-        newMana -= amount;
-        CustomPlayerManager.players.get(player.getUniqueId()).registerField("mana", newMana, "Mana");
-        player.sendMessage(Component.text("Current mana: " + CustomPlayerManager.players.get(player.getUniqueId()).getField("mana").currentValue));
+        PlayerField<?> playerMana = CustomPlayerManager.getPlayer(target.getUniqueId()).getField("mana");
+        player.sendMessage(Component.text("Your current mana \""+playerMana.getCurrentValue(Double.class)+"\""));
+        playerMana.setCurrentValue(((Double) playerMana.getCurrentValue(Double.class)) - amount);
+        player.sendMessage(Component.text("Current mana: " + playerMana.getCurrentValue(Double.class)));
         return true;
     }
 }

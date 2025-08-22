@@ -14,7 +14,6 @@ public class PlayerRightClickListener implements Listener {
     @EventHandler
     public void onPlayerRightClickEvent(PlayerInteractEvent event) {
         if (!event.getAction().isRightClick()) return;
-        CustomPlayer customPlayer = CustomPlayerManager.players.get(event.getPlayer().getUniqueId());
-        CustomItem.castCustomItemAbility(customPlayer);
+        CustomPlayerManager.getPlayer(event.getPlayer().getUniqueId()).castCustomItemAbility();
     }
 }

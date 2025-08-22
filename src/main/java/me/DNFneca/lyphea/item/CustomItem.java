@@ -57,21 +57,6 @@ public class CustomItem {
         CustomItemManager.registerItem(name, customItem);
     }
 
-
-    public static void castCustomItemAbility(@NotNull CustomPlayer customPlayer) {
-        Player player = Bukkit.getPlayer(customPlayer.getUUID());
-        if (player == null || !isCustomItem(player.getInventory().getItemInMainHand())) return;
-        ItemStack itemStack = player.getInventory().getItemInMainHand();
-        NamespacedKey key = new NamespacedKey(Lyphea.getInstance(), "customItemAbility");
-        if (!itemStack.getPersistentDataContainer().has(key)) return;
-        String customItemAbilityKey = itemStack.getPersistentDataContainer().get(key, PersistentDataType.STRING);
-        if (customItemAbilityKey == null) return;
-        CustomItemAbility customItemAbility = CustomItemAbilityManager.getAbilityRegistry().get(NamespacedKey.fromString(customItemAbilityKey));
-        Lyphea.getInstance().getLogger().info(customItemAbility.toString());
-        if (customItemAbility == null) return;
-        customItemAbility.getCustomPlayerConsumer().accept(customPlayer);
-    }
-
     public static boolean isCustomItem(ItemStack item) {
         return item.getPersistentDataContainer().has(new NamespacedKey(Lyphea.getInstance(), "customItem"));
     }
