@@ -1,0 +1,7 @@
+name: LypheaAPI
+version: '0.0.0.1'
+main: me.DNFneca.lypheaAPI.LypheaAPI
+api-version: '1.21'
+load: STARTUP
+authors: [DNFneca]
+description: Lyphea

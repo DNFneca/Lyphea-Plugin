@@ -1,0 +1,111 @@
+import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
+
+plugins {
+    id 'java'
+    id("xyz.jpenilla.run-paper") version "2.3.1"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.18"
+    id("com.gradleup.shadow") version "9.0.0-rc2"
+}
+
+group = 'me.DNFneca'
+version = '0.0.0.1'
+
+tasks.shadowJar {
+    archiveClassifier.set('') // Makes the final jar replace the default one
+    archiveVersion.set(version)
+    archiveBaseName.set("MinecraftCivilizationsCore")
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        url "https://repo.dmulloy2.net/repository/public/"
+        name "protocol-lib"
+    }
+    maven {
+        url = "https://repo.aikar.co/content/groups/aikar/"
+        name = "aikar"
+    }
+}
+
+configurations {
+    shadow
+}
+
+dependencies {
+//    compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    implementation "com.google.code.gson:gson:2.10.1"
+    implementation "co.aikar:acf-paper:0.5.1-SNAPSHOT"
+    shadow "co.aikar:acf-paper:0.5.1-SNAPSHOT"
+
+    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "5.3.0"
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.38")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+}
+
+jar {
+    enabled = false // Disable the default JAR task
+}
+
+shadowJar {
+    archiveClassifier = ''
+    archiveBaseName = project.name
+
+    configurations = [project.configurations.shadow]
+
+    relocate 'co.aikar.commands', 'com.minecraftcivilizations.specialization.acf'
+    relocate 'co.aikar.locales', 'com.minecraftcivilizations.specialization.locales'
+}
+
+tasks {
+  runServer {
+    // Configure the Minecraft version for our task.
+    // This is the only required configuration besides applying the plugin.
+    // Your plugin's jar (or shadowJar if present) will be used automatically.
+    minecraftVersion("1.21.8")
+  }
+}
+
+def targetJavaVersion = 21
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+
+tasks.build.dependsOn tasks.shadowJar
+tasks.jar.enabled = true
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.getMOJANG_PRODUCTION()
