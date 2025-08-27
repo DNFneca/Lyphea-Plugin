@@ -97,8 +97,6 @@ public abstract class GUI {
     }
 
     private void placeOption(Map.Entry<GUIPlaceOption, Boolean> option) {
-        LypheaAPI.logger.info("Placing option: " + option.getKey());
-        LypheaAPI.logger.info("Parent GUI: " + this.parentGUI);
         if (option.getKey() == GUIPlaceOption.SHOULD_PLACE_BACK && option.getValue()) {
             if (this.parentGUI == null) return;
             GUIItem back = ItemUtils.makeGUIItemOfType(Material.ARROW, "Back");

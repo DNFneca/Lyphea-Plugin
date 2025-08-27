@@ -2,6 +2,7 @@ package me.DNFneca.lypheaAPI.util;
 
 import me.DNFneca.lypheaAPI.GUI.GUIItem;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
@@ -16,13 +17,13 @@ public class ItemUtils {
     public static boolean isGUIItemWithSpecificName(ItemStack item, String name) {
         if(item.getItemMeta() == null || !item.getItemMeta().hasDisplayName()) return false;
         ItemMeta meta = item.getItemMeta();
-        return meta.displayName().equals(Component.text(name).color(TextColor.fromHexString("#ffffff")).decoration(TextDecoration.ITALIC, false));
+        return meta.displayName().equals(Component.text(name).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
     }
 
     public static GUIItem makeItemGUIItem(ItemStack item, String name) {
         if(item == null || name == null || item.getItemMeta() == null) return null;
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text(name).color(TextColor.fromHexString("#ffffff")).decoration(TextDecoration.ITALIC, false));
+        meta.displayName(Component.text(name).color(NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         meta.addItemFlags(ItemFlag.values());
         meta.lore(new ArrayList<>());
         item.setItemMeta(meta);

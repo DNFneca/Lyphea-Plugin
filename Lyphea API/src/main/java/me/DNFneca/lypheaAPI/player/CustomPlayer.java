@@ -1,13 +1,14 @@
 package me.DNFneca.lypheaAPI.player;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import lombok.Setter;
 import me.DNFneca.lypheaAPI.LypheaAPI;
+import me.DNFneca.lypheaAPI.entity.FieldedEntity;
 import me.DNFneca.lypheaAPI.item.CustomItemAbility;
 import me.DNFneca.lypheaAPI.manager.CustomItemAbilityManager;
 import me.DNFneca.lypheaAPI.manager.CustomPlayerManager;
+import me.DNFneca.lypheaAPI.player.collection.Collection;
+import me.DNFneca.lypheaAPI.player.collection.CollectionType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.Bukkit;
@@ -17,15 +18,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.lang.constant.Constable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static me.DNFneca.lypheaAPI.item.CustomItem.isCustomItem;
 
 
-public class CustomPlayer {
+public class CustomPlayer extends FieldedEntity {
     @Getter
     @Setter
     private UUID UUID;
@@ -37,8 +35,9 @@ public class CustomPlayer {
     private UUID nextGUI;
     private String name;
     @Getter
+    private final Map<CollectionType, Collection> collections = new HashMap<>();
+    @Getter
     private final Map<NamespacedKey, Long> abilitiesCastHistory = new HashMap<>();
-    private final Map<String, PlayerField<?>> fields = new HashMap<>(0);
 
     public CustomPlayer(UUID UUID, String name) {
         this.UUID = UUID;
@@ -49,7 +48,7 @@ public class CustomPlayer {
     public CustomPlayer(UUID UUID, String name, Map<String, PlayerField<?>> fields) {
         this.UUID = UUID;
         this.name = name;
-        this.fields.putAll(fields);
+        super.addAllFields(fields);
     }
 
     public CustomPlayer(Player player) {
@@ -61,27 +60,14 @@ public class CustomPlayer {
     public CustomPlayer(Player player, Map<String, PlayerField<?>> fields) {
         this.UUID = player.getUniqueId();
         this.name = player.getName();
-        this.fields.putAll(fields);
+        super.addAllFields(fields);
     }
 
-    public <T extends Constable> void field(NamespacedKey key, T value, Component displayName) {
-        fields.put(key.toString(), new PlayerField<>(displayName, value));
+    public double collection(CollectionType collectionType) {
+        return ((double) Math.round(collections.get(collectionType).getCollectedAmount() * 100) / 100);
     }
 
-    public <T extends Constable> void field(String fieldName, T value, Component displayName) {
-        fields.put(new NamespacedKey(LypheaAPI.getInstance(), fieldName).toString(), new PlayerField<>(displayName, value));
-    }
 
-    public <T extends Constable> void field(String fieldName, T value) {
-        fields.put(
-                new NamespacedKey(LypheaAPI.getInstance(), fieldName).toString(),
-                new PlayerField<>(getField(fieldName).getName(), new Gson().toJson(value, value.getClass()))
-        );
-    }
-
-    public <T> T field(String name, TypeToken<T> typeToken) {
-        return fields.get(new NamespacedKey(LypheaAPI.getInstance(), name).toString()).getCurrentValue(typeToken);
-    }
 
     public Player getPlayer() {
         return Bukkit.getPlayer(UUID);
@@ -89,14 +75,6 @@ public class CustomPlayer {
 
     public net.minecraft.world.entity.player.Player getNMSPlayer() {
         return ((CraftPlayer) getPlayer()).getHandle();
-    }
-
-    public PlayerField<?> getField(String name) {
-        return fields.get(new NamespacedKey(LypheaAPI.getInstance(), name).toString());
-    }
-
-    public void addAllFields(Map<String, PlayerField<?>> fields) {
-        this.fields.putAll(fields);
     }
 
     public void castCustomItemAbility() {

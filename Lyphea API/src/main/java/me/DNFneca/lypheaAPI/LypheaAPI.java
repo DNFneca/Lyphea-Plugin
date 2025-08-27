@@ -1,5 +1,6 @@
 package me.DNFneca.lypheaAPI;
 
+import me.DNFneca.lypheaAPI.listener.PlayerBreakBlockListener;
 import me.DNFneca.lypheaAPI.listener.PlayerJoinListener;
 import me.DNFneca.lypheaAPI.listener.PlayerQuitListener;
 import me.DNFneca.lypheaAPI.listener.PlayerRightClickListener;
@@ -24,6 +25,7 @@ public final class LypheaAPI extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
         getServer().getPluginManager().registerEvents(new GUIManager(), this);
         getServer().getPluginManager().registerEvents(new PlayerRightClickListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerBreakBlockListener(), this);
         PacketManager.init();
 
         for (Player player : this.getServer().getOnlinePlayers()) {

@@ -6,9 +6,10 @@ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 
 public class Collection {
     @Getter
-    private CollectionType collectionType;
+    private final CollectionType collectionType;
     private String collectionName;
-    private int collectedAmount;
+    @Getter
+    private float collectedAmount;
 
     public Collection(CollectionType collectionType, Component collectionName, int collectedAmount) {
         this.collectionType = collectionType;
@@ -17,7 +18,7 @@ public class Collection {
     }
 
 
-    public void addCollectedAmount(int amount) {
+    public void addCollectedAmount(float amount) {
         this.collectedAmount += amount;
     }
 

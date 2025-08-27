@@ -43,7 +43,7 @@ public class PacketManager {
                     public void run() {
                         ListGUI openGUI = new ListGUI(Component.text("Search Results"), SearchSignGUI.searchItemsAndBlocks(packetEvent.getPacket().getStringArrays().read(0)[0]));
                         CustomPlayer customPlayer = CustomPlayerManager.getPlayer(player.getUniqueId());
-                        openGUI.setParentGUI(GUIManager.findGUIById(customPlayer.getCurrentGUI()));
+                        openGUI.setParentGUI(GUIManager.getGUI(customPlayer.getCurrentGUI()));
                         openGUI.getOptions().put(GUIPlaceOption.SHOULD_PLACE_BACK, true);
                         openGUI.getOptions().put(GUIPlaceOption.SHOULD_PLACE_SEARCH, false);
                         openGUI.open(player);
