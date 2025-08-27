@@ -3,7 +3,6 @@ package me.DNFneca.lyphea;
 import co.aikar.commands.PaperCommandManager;
 import me.DNFneca.lyphea.command.GiveCustomItemExecutor;
 import me.DNFneca.lyphea.command.RemoveManaExecutor;
-import me.DNFneca.lyphea.command.StatsExecutor;
 import me.DNFneca.lyphea.item.Items;
 import me.DNFneca.lypheaAPI.item.CustomItem;
 import me.DNFneca.lypheaAPI.manager.CustomItemManager;
@@ -30,7 +29,8 @@ public final class Lyphea extends JavaPlugin {
             return listOfCustomItems;
         });
         commandManager.registerCommand(new GiveCustomItemExecutor());
-        commandManager.registerCommand(new StatsExecutor());
+//
+//        this.getServer().getPluginManager().registerEvents(new ChatMessageListener(), this);
 
         Items.register();
     }

@@ -1,32 +1,46 @@
 package me.DNFneca.lypheaAPI.manager;
 
+import lombok.Getter;
 import me.DNFneca.lypheaAPI.GUI.GUI;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class GUIManager implements Listener {
-    private static final Map<UUID, GUI> GUIs = new HashMap<>(0);
+    private static final ArrayList<GUI> GUIs = new ArrayList<>(0);
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        for (Map.Entry<UUID, GUI> gui : GUIs.entrySet()) {
-            if (gui.getValue().getInventory().equals(event.getClickedInventory())) {
+        List<GUI> relevantGUIs = new ArrayList<>(0);
+        for (GUI gui : GUIs) {
+            if (gui.getInventory().equals(event.getClickedInventory())) {
+                relevantGUIs.add(gui);
                 event.setCancelled(true);
-                gui.getValue().click(event.getSlot());
-                return;
             }
+        }
+        for (GUI gui : relevantGUIs) {
+            gui.click(event.getSlot());
         }
     }
 
     public static void addGUI(GUI gui) {
-        GUIs.put(gui.getId(), gui);
+        GUIs.add(gui);
     }
 
-    public static GUI getGUI(UUID id) {
-        return GUIs.get(id);
+    public static GUI findGUIById(UUID id) {
+        for (GUI baseGUI : GUIs) {
+            if (baseGUI.getId().equals(id)) {
+                return baseGUI;
+            }
+        }
+        return null;
+    }
+
+    public static GUI findGUIById(String id) {
+        return findGUIById(UUID.fromString(id));
     }
 }

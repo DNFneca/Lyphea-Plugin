@@ -65,8 +65,6 @@ public class CustomPlayerManager {
     }
 
     public static void initializePlayer(CustomPlayer customPlayer) {
-        customPlayer.getCollections().put(CollectionType.COMBAT, new Collection(CollectionType.COMBAT, Component.text("Combat"), 0));
-        customPlayer.getCollections().put(CollectionType.MINING, new Collection(CollectionType.MINING, Component.text("Mining"), 0));
         customPlayer.addAllFields(
                 new HashMap<>(0) {
                     {
@@ -82,6 +80,13 @@ public class CustomPlayerManager {
                         put(new NamespacedKey(LypheaAPI.getInstance(), "height").toString(), new PlayerField<>(Component.text("Height").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(LypheaAPI.getInstance(), "rank").toString(), new PlayerField<>(Component.text("Rank").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(LypheaAPI.getInstance(), "level").toString(), new PlayerField<>(Component.text("Level").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
+                        put(new NamespacedKey(LypheaAPI.getInstance(), "collections").toString(), new PlayerField<>(Component.text("Collections").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false),
+                                new HashMap<>() {
+                                    {
+                                        put(CollectionType.COMBAT, new Collection(CollectionType.COMBAT, Component.text("Combat"), 0));
+                                        put(CollectionType.MINING, new Collection(CollectionType.COMBAT, Component.text("Mining"), 0));
+                                    }
+                                }));
                     }
                 });
 
