@@ -89,6 +89,7 @@ public abstract class GUI {
     }
 
     private void fillEmptySlots() {
+        if (!getOptions().getOrDefault(GUIPlaceOption.SHOULD_PLACE_FILL, true)) return;
         for (int i = 0; i < size; i++) {
             if (!this.items.containsKey(i)) {
                 this.items.put(i, ItemUtils.makeGUIItemOfType(Material.LIGHT_GRAY_STAINED_GLASS_PANE, ""));

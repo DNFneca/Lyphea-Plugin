@@ -11,11 +11,18 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class StatsGUI extends GUI {
     public StatsGUI() {
-        super(Component.text("Stats"), 54);
-        getOptions().put(GUIPlaceOption.SHOULD_PLACE_EXIT, true);
-        getOptions().put(GUIPlaceOption.SHOULD_PLACE_BACK, true);
+        super(Component.text("\uE004\uE002"), 54, new HashMap<GUIPlaceOption, Boolean>() {
+            {
+                put(GUIPlaceOption.SHOULD_PLACE_EXIT, true);
+                put(GUIPlaceOption.SHOULD_PLACE_FILL, false);
+                put(GUIPlaceOption.SHOULD_PLACE_BACK, true);
+            }
+        });
     }
 
     @Override

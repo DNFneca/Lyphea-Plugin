@@ -47,8 +47,6 @@ public class ListGUI extends GUI {
         ArrayList<ItemStack> items = new ArrayList<>();
         for (int i = getSize() - (18 + (getSize()/9 - 2) * 2); i < show.size(); i++) {
             items.add(show.get(i));
-//            if (i > getSize() - (18 + (getSize()/9 - 2) * 2)) {
-//            }
         }
         new ListGUI(Component.text("Search Results"), items).setParentGUI(this).open(player);
     }

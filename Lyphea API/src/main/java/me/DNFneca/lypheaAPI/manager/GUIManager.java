@@ -14,7 +14,7 @@ public class GUIManager implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event) {
         for (Map.Entry<UUID, GUI> gui : GUIs.entrySet()) {
-            if (gui.getValue().getInventory().equals(event.getClickedInventory())) {
+            if (gui.getValue().getInventory().equals(event.getView().getTopInventory())) {
                 event.setCancelled(true);
                 gui.getValue().click(event.getSlot());
                 return;
