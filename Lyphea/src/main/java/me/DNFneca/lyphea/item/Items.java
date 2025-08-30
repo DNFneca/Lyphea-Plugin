@@ -45,20 +45,9 @@ public class Items {
                 new NamespacedKey(LypheaAPI.getInstance(), "test_name")
         );
         itemStack.setCustomModelData(1F);
-    }
-
-    private static CustomItem createItemStack(@NotNull Material material, @NotNull String name, @NotNull Component displayName, @NotNull String description, @Nullable NamespacedKey customItemAbility) {
-        CustomItem customItem = new CustomItem(ItemStack.of(material));
-        customItem.setCustomItemAbility(customItemAbility);
-        customItem.setCustomDisplayName(displayName);
-        customItem.setCustomLore(LoreUtils.createDescriptionLoreLine(description));
-        customItem.setCustomItemStats(new HashMap<>(0) {
-            {
-                put("mana", 0F);
-            }
-        });
-        CustomItemRegistry.INSTANCE.register(name, customItem);
-        return customItem;
+        itemStack.addCustomStat("mana", 10F);
+        itemStack.addCustomStat("damage", 25.5F);
+        CustomItemRegistry.INSTANCE.register("test_name", itemStack);
     }
 
     private static CustomItem createItemStack(@NotNull Material material, @NotNull String name, @NotNull String displayName, @NotNull String description, @Nullable NamespacedKey customItemAbility) {
@@ -66,12 +55,7 @@ public class Items {
         customItem.setCustomItemAbility(customItemAbility);
         customItem.setCustomDisplayName(Component.text(displayName).color(NamedTextColor.WHITE).decorations(Set.of(TextDecoration.ITALIC), false));
         customItem.setCustomLore(LoreUtils.createDescriptionLoreLine(description));
-        customItem.setCustomItemStats(new HashMap<>() {
-            {
-                put("mana", 0F);
-            }
-        });
-        CustomItemRegistry.INSTANCE.register(name, customItem);
+
         return customItem;
     }
 }
