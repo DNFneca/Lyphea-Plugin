@@ -6,7 +6,7 @@ import me.DNFneca.lyphea.command.RemoveManaExecutor;
 import me.DNFneca.lyphea.command.StatsExecutor;
 import me.DNFneca.lyphea.item.Items;
 import me.DNFneca.lypheaAPI.item.CustomItem;
-import me.DNFneca.lypheaAPI.manager.CustomItemManager;
+import me.DNFneca.lypheaAPI.registry.CustomItemRegistry;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +24,7 @@ public final class Lyphea extends JavaPlugin {
         commandManager.registerCommand(new RemoveManaExecutor());
         commandManager.getCommandCompletions().registerCompletion("customItems", c -> {
             List<String> listOfCustomItems = new ArrayList<>(0);
-            for (Map.Entry<NamespacedKey, CustomItem> item : CustomItemManager.getItemRegistry().entrySet()) {
+            for (Map.Entry<NamespacedKey, CustomItem> item : CustomItemRegistry.INSTANCE.entrySet()) {
                 listOfCustomItems.add(item.getKey().toString());
             }
             return listOfCustomItems;

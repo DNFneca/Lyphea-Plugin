@@ -2,7 +2,7 @@ package me.DNFneca.lyphea.command;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import me.DNFneca.lypheaAPI.manager.CustomItemManager;
+import me.DNFneca.lypheaAPI.registry.CustomItemRegistry;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class GiveCustomItemExecutor extends BaseCommand {
     @CommandCompletion("@customItems")
     public boolean onCommand(@NotNull CommandSender sender, @Name("customItem") @NotNull NamespacedKey customItem) {
         if (!sender.isOp() || !(sender instanceof Player player)) return false;
-        player.give(CustomItemManager.getItemRegistry().get(customItem).getItemStack());
+        player.give(CustomItemRegistry.getCustomItem(customItem).itemStack());
         return true;
     }
 }

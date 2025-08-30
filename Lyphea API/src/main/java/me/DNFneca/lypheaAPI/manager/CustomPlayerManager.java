@@ -68,9 +68,7 @@ public class CustomPlayerManager {
         customPlayer.getCollections().put(CollectionType.COMBAT, new Collection(CollectionType.COMBAT, Component.text("Combat"), 0));
         customPlayer.getCollections().put(CollectionType.MINING, new Collection(CollectionType.MINING, Component.text("Mining"), 0));
         customPlayer.appendStat("mana");
-        float mana = customPlayer.getStat("mana");
-        customPlayer.getPlayer().sendMessage(String.valueOf(mana));
-//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("damage"));
+        customPlayer.appendStat("damage");
 //        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("strength"));
 //        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("defense"));
 //        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("stealth"));

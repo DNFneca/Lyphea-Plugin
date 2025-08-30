@@ -171,7 +171,6 @@ public record CustomItem(ItemStack itemStack) {
         }
         List<Component> lore = new ArrayList<>(0);
         getItemStats().forEach(((namespacedKey, aFloat) -> {
-            LypheaAPI.logger.info(namespacedKey.toString());
             lore.add(CustomStatRegistry.getCustomStat(namespacedKey).getDisplayName().color(NamedTextColor.GRAY)
                     .append(
                             LoreUtils.createLoreLine(aFloat > 0 ? " +" + aFloat : " " + aFloat, CustomStatRegistry.getCustomStat(namespacedKey).getHexTextColor())
