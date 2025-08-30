@@ -4,11 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import me.DNFneca.lypheaAPI.LypheaAPI;
 import me.DNFneca.lypheaAPI.entity.FieldedEntity;
-import me.DNFneca.lypheaAPI.item.CustomItemAbility;
-import me.DNFneca.lypheaAPI.manager.CustomItemAbilityManager;
+import me.DNFneca.lypheaAPI.item.CustomItem;
 import me.DNFneca.lypheaAPI.manager.CustomPlayerManager;
 import me.DNFneca.lypheaAPI.player.collection.Collection;
 import me.DNFneca.lypheaAPI.player.collection.CollectionType;
+import me.DNFneca.lypheaAPI.registry.CustomAbilityRegistry;
+import me.DNFneca.lypheaAPI.registry.CustomStatRegistry;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.Bukkit;
@@ -16,7 +17,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
@@ -35,9 +35,9 @@ public class CustomPlayer extends FieldedEntity {
     private UUID nextGUI;
     private String name;
     @Getter
-    private final Map<CollectionType, Collection> collections = new HashMap<>();
-    @Getter
-    private final Map<NamespacedKey, Long> abilitiesCastHistory = new HashMap<>();
+    private final Map<CollectionType, Collection> collections = new HashMap<>(0);
+    private final Map<String, Float> stats = new HashMap<>(0);
+    private final Map<NamespacedKey, Long> abilitiesCastHistory = new HashMap<>(0);
 
     public CustomPlayer(UUID UUID, String name) {
         this.UUID = UUID;
@@ -67,8 +67,6 @@ public class CustomPlayer extends FieldedEntity {
         return ((double) Math.round(collections.get(collectionType).getCollectedAmount() * 100) / 100);
     }
 
-
-
     public Player getPlayer() {
         return Bukkit.getPlayer(UUID);
     }
@@ -81,13 +79,33 @@ public class CustomPlayer extends FieldedEntity {
         Player player = getPlayer();
         if (player == null || !isCustomItem(player.getInventory().getItemInMainHand())) return;
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-        NamespacedKey key = new NamespacedKey(LypheaAPI.getInstance(), "customItemAbility");
-        if (!itemStack.getPersistentDataContainer().has(key)) return;
-        String customItemAbilityKey = itemStack.getPersistentDataContainer().get(key, PersistentDataType.STRING);
-        if (customItemAbilityKey == null) return;
-        CustomItemAbility customItemAbility = CustomItemAbilityManager.getAbilityRegistry().get(NamespacedKey.fromString(customItemAbilityKey));
-        if (customItemAbility == null) return;
-        customItemAbility.getCustomPlayerConsumer().accept(this);
+        CustomItem customItem = new CustomItem(itemStack);
+        CustomAbilityRegistry.getCustomAbility(customItem.getCustomItemAbility()).customPlayerConsumer().accept(this);
+    }
+
+    public float getStat(NamespacedKey namespacedKey) {
+        return stats.get(namespacedKey.toString());
+    }
+
+    public float getStat(String entry) {
+        return stats.get(new NamespacedKey(LypheaAPI.getInstance(), entry).toString());
+    }
+
+    public void appendStat(NamespacedKey namespacedKey) {
+        stats.put(namespacedKey.toString(), CustomStatRegistry.getCustomStat(namespacedKey).getDefaultValue());
+    }
+
+    public void appendStat(String name) {
+        NamespacedKey namespacedKey = new NamespacedKey(LypheaAPI.getInstance(), name);
+        stats.put(namespacedKey.toString(), CustomStatRegistry.getCustomStat(namespacedKey).getDefaultValue());
+    }
+
+    public void stat(NamespacedKey namespacedKey, float value) {
+        stats.put(namespacedKey.toString(), value);
+    }
+
+    public void stat(String name, float value) {
+        stats.put(new NamespacedKey(LypheaAPI.getInstance(), name).toString(), value);
     }
 
     public Component getName() {

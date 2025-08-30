@@ -8,6 +8,7 @@ import me.DNFneca.lypheaAPI.manager.CustomPlayerManager;
 import me.DNFneca.lypheaAPI.manager.GUIManager;
 import me.DNFneca.lypheaAPI.manager.PacketManager;
 import me.DNFneca.lypheaAPI.player.CustomPlayer;
+import me.DNFneca.lypheaAPI.registry.CustomStatRegistry;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,6 +28,7 @@ public final class LypheaAPI extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerRightClickListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerBreakBlockListener(), this);
         PacketManager.init();
+        CustomStatRegistry.init();
 
         for (Player player : this.getServer().getOnlinePlayers()) {
             CustomPlayerManager.registerPlayer(player.getUniqueId());

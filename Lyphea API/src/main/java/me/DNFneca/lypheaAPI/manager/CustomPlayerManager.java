@@ -67,18 +67,20 @@ public class CustomPlayerManager {
     public static void initializePlayer(CustomPlayer customPlayer) {
         customPlayer.getCollections().put(CollectionType.COMBAT, new Collection(CollectionType.COMBAT, Component.text("Combat"), 0));
         customPlayer.getCollections().put(CollectionType.MINING, new Collection(CollectionType.MINING, Component.text("Mining"), 0));
+        customPlayer.appendStat("mana");
+        float mana = customPlayer.getStat("mana");
+        customPlayer.getPlayer().sendMessage(String.valueOf(mana));
+//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("damage"));
+//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("strength"));
+//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("defense"));
+//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("stealth"));
+//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("speed"));
+//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("intelligence"));
+//        customPlayer.getStats().add(CustomStatRegistry.getRegistryEntry("stealth"));
         customPlayer.addAllFields(
                 new HashMap<>(0) {
                     {
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "mana").toString(), new PlayerField<>(Component.text("Mana").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "damage").toString(), new PlayerField<>(Component.text("Damage").color(NamedTextColor.RED).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "strength").toString(), new PlayerField<>(Component.text("Strength").color(NamedTextColor.DARK_RED).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "defense").toString(), new PlayerField<>(Component.text("Defense").color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "stealth").toString(), new PlayerField<>(Component.text("Stealth").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "speed").toString(), new PlayerField<>(Component.text("Speed").color(NamedTextColor.YELLOW).decoration(TextDecoration.ITALIC, false), 0D));
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "intelligence").toString(), new PlayerField<>(Component.text("Intelligence").color(NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(LypheaAPI.getInstance(), "race").toString(), new PlayerField<>(Component.text("Race").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), Race.HUMAN));
-                        put(new NamespacedKey(LypheaAPI.getInstance(), "color").toString(), new PlayerField<>(Component.text("Color").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(LypheaAPI.getInstance(), "height").toString(), new PlayerField<>(Component.text("Height").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(LypheaAPI.getInstance(), "rank").toString(), new PlayerField<>(Component.text("Rank").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));
                         put(new NamespacedKey(LypheaAPI.getInstance(), "level").toString(), new PlayerField<>(Component.text("Level").color(NamedTextColor.AQUA).decoration(TextDecoration.ITALIC, false), 0D));

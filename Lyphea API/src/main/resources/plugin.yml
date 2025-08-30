@@ -5,3 +5,5 @@ api-version: '1.21'
 load: STARTUP
 authors: [DNFneca]
 description: Lyphea
+depend:
+  - ProtocolLib

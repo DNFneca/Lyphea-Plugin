@@ -11,7 +11,7 @@ import java.util.List;
 
 public class LoreUtils {
 
-    public static List<Component> CreateDescriptionLoreLine(String description) {
+    public static List<Component> createDescriptionLoreLine(String description) {
         if (description.length() < 20) return List.of(Component.text(description).style(Style.style(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)));
         List<Component> components = new ArrayList<>(0);
         components.addAll(splitLore(description));
@@ -31,11 +31,11 @@ public class LoreUtils {
                 }
                 for (int i = 0; i < word.length(); i += 30) {
                     int end = Math.min(i + 30, word.length());
-                    result.add(CreateLoreLine(word.substring(i, end)));
+                    result.add(createLoreLine(word.substring(i, end)));
                 }
             } else {
                 if (currentLine.length() + word.length() + 1 > 30) {
-                    result.add(CreateLoreLine(currentLine.toString().trim()));
+                    result.add(createLoreLine(currentLine.toString().trim()));
                     currentLine.setLength(0);
                 }
                 currentLine.append(word).append(" ");
@@ -43,17 +43,17 @@ public class LoreUtils {
         }
 
         if (!currentLine.isEmpty()) {
-            result.add(CreateLoreLine(currentLine.toString().trim()));
+            result.add(createLoreLine(currentLine.toString().trim()));
         }
 
         return result;
     }
 
-    public static Component CreateLoreLine(String text) {
+    public static Component createLoreLine(String text) {
         return Component.text(text).style(Style.style(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false));
     }
 
-    public static Component CreateLoreLine(String text, TextColor color) {
+    public static Component createLoreLine(String text, TextColor color) {
         return Component.text(text).style(Style.style(color).decoration(TextDecoration.ITALIC, false));
     }
 
