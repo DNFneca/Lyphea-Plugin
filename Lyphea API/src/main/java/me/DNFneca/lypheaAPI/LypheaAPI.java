@@ -1,13 +1,12 @@
 package me.DNFneca.lypheaAPI;
 
-import me.DNFneca.lypheaAPI.listener.PlayerBreakBlockListener;
-import me.DNFneca.lypheaAPI.listener.PlayerJoinListener;
-import me.DNFneca.lypheaAPI.listener.PlayerQuitListener;
-import me.DNFneca.lypheaAPI.listener.PlayerRightClickListener;
+import me.DNFneca.lypheaAPI.ability.CustomItemEnchantment;
+import me.DNFneca.lypheaAPI.listener.*;
 import me.DNFneca.lypheaAPI.manager.CustomPlayerManager;
 import me.DNFneca.lypheaAPI.manager.GUIManager;
 import me.DNFneca.lypheaAPI.manager.PacketManager;
 import me.DNFneca.lypheaAPI.player.CustomPlayer;
+import me.DNFneca.lypheaAPI.registry.CustomEnchantmentRegistry;
 import me.DNFneca.lypheaAPI.registry.CustomStatRegistry;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,8 +26,15 @@ public final class LypheaAPI extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GUIManager(), this);
         getServer().getPluginManager().registerEvents(new PlayerRightClickListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerBreakBlockListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerArmorChangeListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerBreakItemListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerInventoryClickListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerItemHeldListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerRespawnListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerSwapHandItemsListener(), this);
         PacketManager.init();
         CustomStatRegistry.init();
+        CustomEnchantmentRegistry.init();
 
         for (Player player : this.getServer().getOnlinePlayers()) {
             CustomPlayerManager.registerPlayer(player.getUniqueId());

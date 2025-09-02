@@ -25,6 +25,10 @@ public abstract class Registry<T> {
         return registry.get(key);
     }
 
+    public T getValue(String key) {
+        return registry.get(new NamespacedKey(LypheaAPI.getInstance(), key));
+    }
+
     public Set<Map.Entry<NamespacedKey, T>> entrySet() {
         return registry.entrySet();
     }

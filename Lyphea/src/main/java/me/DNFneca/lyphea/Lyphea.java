@@ -1,11 +1,14 @@
 package me.DNFneca.lyphea;
 
 import co.aikar.commands.PaperCommandManager;
+import me.DNFneca.lyphea.command.EnchantCustomItemExecutor;
 import me.DNFneca.lyphea.command.GiveCustomItemExecutor;
 import me.DNFneca.lyphea.command.RemoveManaExecutor;
 import me.DNFneca.lyphea.command.StatsExecutor;
 import me.DNFneca.lyphea.item.Items;
+import me.DNFneca.lypheaAPI.ability.CustomItemEnchantment;
 import me.DNFneca.lypheaAPI.item.CustomItem;
+import me.DNFneca.lypheaAPI.registry.CustomEnchantmentRegistry;
 import me.DNFneca.lypheaAPI.registry.CustomItemRegistry;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -31,6 +34,14 @@ public final class Lyphea extends JavaPlugin {
         });
         commandManager.registerCommand(new GiveCustomItemExecutor());
         commandManager.registerCommand(new StatsExecutor());
+        commandManager.getCommandCompletions().registerCompletion("customEnchant", c -> {
+            List<String> listOfCustomItems = new ArrayList<>(0);
+            for (Map.Entry<NamespacedKey, CustomItemEnchantment> item : CustomEnchantmentRegistry.INSTANCE.entrySet()) {
+                listOfCustomItems.add(item.getKey().toString());
+            }
+            return listOfCustomItems;
+        });
+        commandManager.registerCommand(new EnchantCustomItemExecutor());
 
         Items.register();
     }

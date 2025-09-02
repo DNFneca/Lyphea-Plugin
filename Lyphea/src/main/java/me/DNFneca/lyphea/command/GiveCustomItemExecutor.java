@@ -17,7 +17,7 @@ public class GiveCustomItemExecutor extends BaseCommand {
     @CommandCompletion("@customItems")
     public boolean onCommand(@NotNull CommandSender sender, @Name("customItem") @NotNull NamespacedKey customItem) {
         if (!sender.isOp() || !(sender instanceof Player player)) return false;
-        player.give(CustomItemRegistry.getCustomItem(customItem).itemStack());
+        player.give(CustomItemRegistry.getCustomItem(customItem).getItemStack());
         return true;
     }
 }

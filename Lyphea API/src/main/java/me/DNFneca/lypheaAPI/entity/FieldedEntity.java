@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class FieldedEntity {
-    private final Map<String, PlayerField<?>> fields = new HashMap<>(0);
+    protected final Map<String, PlayerField<?>> fields = new HashMap<>(0);
 
     public <T extends Constable> void field(NamespacedKey key, T value, Component displayName) {
         fields.put(key.toString(), new PlayerField<>(displayName, value));
