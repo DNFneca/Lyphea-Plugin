@@ -12,11 +12,11 @@ import java.util.function.Function;
 
 @Getter
 public class CustomItemEnchantment {
-    private final BiFunction<CustomItemEnchantmentEvent, Float, Float> applyEffect;
     private final Component displayName;
     private final List<Component> description;
     private final CustomItemEnchantmentApplicationType applicationType;
     private final CustomItemEnchantmentType type;
+    private final BiFunction<CustomItemEnchantmentEvent, Float, Float> applyEffect;
 
     public CustomItemEnchantment(Component displayName, List<Component> description, CustomItemEnchantmentApplicationType customItemEnchantmentApplicationType, CustomItemEnchantmentType customItemEnchantmentType , BiFunction<CustomItemEnchantmentEvent, Float, Float> applyEffect) {
         this.displayName = displayName;
