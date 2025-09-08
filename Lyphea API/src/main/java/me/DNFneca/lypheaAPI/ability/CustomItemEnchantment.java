@@ -18,7 +18,12 @@ public class CustomItemEnchantment {
     private final CustomItemEnchantmentType type;
     private final BiFunction<CustomItemEnchantmentEvent, Float, Float> applyEffect;
 
-    public CustomItemEnchantment(Component displayName, List<Component> description, CustomItemEnchantmentApplicationType customItemEnchantmentApplicationType, CustomItemEnchantmentType customItemEnchantmentType , BiFunction<CustomItemEnchantmentEvent, Float, Float> applyEffect) {
+    public CustomItemEnchantment(Component displayName,
+                                 List<Component> description,
+                                 CustomItemEnchantmentApplicationType customItemEnchantmentApplicationType,
+                                 CustomItemEnchantmentType customItemEnchantmentType,
+                                 BiFunction<CustomItemEnchantmentEvent, Float, Float> applyEffect) {
+
         this.displayName = displayName;
         this.description = description;
         this.applicationType = customItemEnchantmentApplicationType;
